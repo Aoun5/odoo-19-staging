@@ -21,18 +21,6 @@
                 </setting>
 
                 <!-- Restrict Low Stock -->
-                <setting id="trionex_pos_restrict_stock_setting"
-                         string="Restrict Low Stock in POS"
-                         help="Prevent selling when stock is below threshold">
-                    <div class="mt8">
-                        <field name="pos_restrict_low_stock"/>
-                        <label for="pos_restrict_low_stock" string="Restrict Low Stock Orders"/>
-                    </div>
-                    <div class="mt8" invisible="1">
-                        <label for="pos_low_stock_threshold" string="Low Stock Threshold"/>
-                        <field name="pos_low_stock_threshold" class="oe_inline"/>
-                    </div>
-                </setting>
 
             </xpath>
         </field>
