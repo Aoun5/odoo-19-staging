@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id='view_wht_management_category_form' model='ir.ui.view'>
+        <field name="name">wht.management.category.form</field>
+        <field name="model">wht.management.category</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" readonly="0" required="1" placeholder="e.g. GST"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group string="Configuration">
+                            <field name="account_id" required="1"
+                                   options="{'no_create': True}"
+                                   domain="[('account_type','!=','asset_cash')]"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Rate Lines" name="wht_rate_lines">
+                            <field name="wht_line_ids" force_save="1">
+                                <list editable="bottom">
+                                    <field name="wht_category_id" options="{'no_open': True, 'no_create': True}"
+                                           column_invisible="1"/>
+                                    <field name="name" width="150px"/>
+                                    <field name="account_id" force_save="1"
+                                           options="{'no_open': True, 'no_create': True}" column_invisible="1"/>
+                                    <field name="wht_type" force_save="1" widget="badge" width="150px"/>
+                                    <field name="wht_value" force_save="1" widget="monetary" width="150px"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+
+                </sheet>
+
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id='view_wht_management_category_tree' model='ir.ui.view'>
+        <field name="name">wht.management.category.list</field>
+        <field name="model">wht.management.category</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" required="1" width="150px"/>
+                <field name="account_id" required="1" width="150px"
+                       domain="[('account_type','!=','asset_cash')]"/>
+            </list>
+        </field>
+    </record>
+
+    <record id='wht_management_category_action' model='ir.actions.act_window'>
+        <field name="name">Category</field>
+        <field name="res_model">wht.management.category</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                No WHT Category found!
+            </p>
+            <p>
+                Please create your first WHT Category.
+            </p>
+        </field>
+
+    </record>
+
+    <menuitem id="menu_wht_management_root" name="WHT Management" parent="account.menu_finance_configuration"
+              sequence="1"/>
+
+    <menuitem id="menu_wht_management_category_root" name="Category"
+              action="wht_management_category_action" parent="menu_wht_management_root" sequence="1"/>
+
+
+    <record id='view_wht_management_form' model='ir.ui.view'>
+        <field name="name">wht.management.list</field>
+        <field name="model">wht.management</field>
+        <field name="arch" type="xml">
+            <list editable="bottom" create="true">
+                <field name="wht_category_id" required="1" width="150px"
+                       options="{'no_open': True, 'no_create': True}"/>
+                <field name="name" required="1" width="150px"/>
+                <field name="account_id" required="1" force_save="1" width="150px"
+                       domain="[('account_type','!=','asset_cash')]"/>
+                <field name="wht_type" required="1" widget="badge" width="150px"/>
+                <field name="wht_value" required="1" widget="monetary" width="150px"/>
+            </list>
+        </field>
+    </record>
+
+    <record id='wht_management_action' model='ir.actions.act_window'>
+        <field name="name">Rate</field>
+        <field name="res_model">wht.management</field>
+        <field name="view_mode">list</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                No WHT Rate found!
+            </p>
+            <p>
+                Please create your first WHT Rate.
+            </p>
+        </field>
+
+    </record>
+
+</odoo>

@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wht_management_category,wht.management.category,model_wht_management_category,,1,1,1,1
+access_wht_management,wht.management,model_wht_management,,1,1,1,1
+access_payment_register_wht_lines,payment.register.wht.lines,model_payment_register_wht_lines,,1,1,1,1
+
+access_payments_register_wht_lines,payments.register.wht.lines,model_payments_register_wht_lines,,1,1,1,1
+
+

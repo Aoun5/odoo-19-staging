@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_account_voucher_wizard_inherit_wht" model="ir.ui.view">
+        <field name="name">account.voucher.wizard.purchase.form.inherit</field>
+        <field name="model">account.voucher.wizard.purchase</field>
+        <field name="inherit_id" ref="purchase_advance_payment.view_account_voucher_wizard"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='payment_ref']" position="after">
+                <field name="cheque_id" force_save="1" required="0"/>
+            </xpath>
+
+            <xpath expr="//field[@name='amount_advance']" position="before">
+                <field name="type_payment" force_save="1" required="1" widget="radio"/>
+                <field name="payment_value" force_save="1" required="1" widget="monetary"/>
+            </xpath>
+
+            <xpath expr="//field[@name='amount_advance']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+
+
+            <xpath expr="//form/group[1]" position="after">
+                <label for="is_apply_wht" class="oe_edit_only" string="Apply WHT"/>
+                <field name="is_apply_wht" widget="boolean_toggle"/>
+                <br/>
+                <br/>
+
+                <field name="wht_line_ids" invisible="not is_apply_wht">
+                    <list editable="bottom">
+                        <field name="advance_payment_reg_id" column_invisible="1"
+                               options="{'no_open': True, 'no_create': True}"/>
+                        <field name="wht_category_id" width="150px" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="wht_id" width="150px" options="{'no_open': True, 'no_create': True}"
+                               domain="[('wht_category_id', '=', wht_category_id)]"/>
+                        <field name="wht_name" width="150px"/>
+                        <field name="wht_account_id" width="150px" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="wht_type" width="150px" widget="badge"/>
+                        <field name="wht_value" width="150px" sum="Total Value" widget="monetary"/>
+                        <field name="wht_amount" width="150px" sum="Total Amount" readonly="0" force_save="1" widget="monetary"/>
+                    </list>
+                </field>
+                <br/>
+                <br/>
+
+                <group name="total_group" col="6" invisible="not is_apply_wht">
+
+                    <group string="WHT Totals" class="oe_subtotal_footer oe_right" colspan="2" name="wht_total">
+
+                        <field name="total_bank_amount" force_save="1" invisible="not is_apply_wht" widget="monetary"/>
+
+                        <field name="wht_grouped_data" readonly="1"
+                               style="white-space: pre-line; font-weight: bold;"/>
+                        <br/>
+                        <br/>
+
+                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                            <label for="amount_advance" string="Total Payable Amount"/>
+                        </div>
+                        <field name="amount_advance" force_save="1" nolabel="1" readonly="1"
+                               class="oe_subtotal_footer_separator" widget="monetary"/>
+                    </group>
+                </group>
+
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
