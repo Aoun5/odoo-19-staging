@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-inherit="point_of_sale.ProductCard" t-inherit-mode="extension">
+        <xpath expr="//article" position="inside">
+            <span class="product-stock-badge"
+                  t-att-class="{ 'text-bg-danger': isLowStock, 'text-bg-success': !isLowStock }"
+                  style="position:absolute; top:4px; right:4px; padding:2px 6px; border-radius:6px; font-size:11px;">
+                Stock: <t t-esc="availableQty"/>
+            </span>
+        </xpath>
+    </t>
+</templates>

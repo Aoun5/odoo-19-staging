@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-inherit="point_of_sale.Orderline" t-inherit-mode="extension">
+        <xpath expr="//ul[contains(@class,'info-list')]" position="inside">
+
+            <li t-if="availableQty"
+                style="font-size: 13px; font-weight: bold;"
+                t-att-class="{
+                    'text-danger': availableQty.isOut,
+                    'text-success': !availableQty.isOut,
+                }">
+                QTY: <t t-esc="availableQty.displayOnHand"/>
+            </li>
+
+            <li t-if="availableQty and availableQty.isOut"
+                class="text-danger"
+                style="font-size: 11px; font-weight: 500; margin-top: 2px;">
+                <i class="fa fa-exclamation-triangle me-1"/>
+                Out of stock
+            </li>
+
+        </xpath>
+    </t>
+</templates>
